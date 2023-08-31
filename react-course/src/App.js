@@ -5,7 +5,7 @@ import Todo from "./components/Todo";
 
 function App() {
   return (
-    <div className="">
+    <div className="bg-[#dfdfdf] m-12">
       <h1 className="text-[#333333] text-4xl font-bold my-2.5 mb-2.5">My Todos</h1>
       <Todo text="Learn React" />
       <Todo text="Master React" />
