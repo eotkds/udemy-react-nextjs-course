@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-
+import { FavoritesContextProvider } from './store/favorite-context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <FavoritesContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </FavoritesContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

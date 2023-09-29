@@ -9,7 +9,6 @@ function AllMeetupsPage() {
         setIsLoading(true);
         fetch('https://react-getting-started-760da-default-rtdb.firebaseio.com/meetups.json')
             .then(response => {
-                console.log(response);
                 return response.json();
             }).then(data => {
                 const meetups = [];
