@@ -1,13 +1,14 @@
 import path from "path";
 import fs from "fs/promises";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 function ProductDetailPage(props) {
     const { loadedProduct } = props;
 
-    // if (!loadedProduct) {
-    //     return <p>Loading...</p>;
-    // }
+    // fallback: true일 때, 렌더링이 완료된 후에 실행됨, notFound: true일 때는도 필요
+    if (!loadedProduct) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <Fragment>
@@ -34,6 +35,11 @@ export async function getStaticProps(context) {
 
     const product = data.products.find((product) => product.id === productId);
 
+    // 동적으로 생성된 페이지를 미리 렌더링할 때 사용(fallback: true)
+    if (!product) {
+        return { notFound: true };
+    }
+
     return {
         props: {
             loadedProduct: product,
@@ -48,7 +54,7 @@ export async function getStaticPaths() {
 
     return {
         paths: pathsWithParams,
-        fallback: false,
+        fallback: true,
     };
 }
 
