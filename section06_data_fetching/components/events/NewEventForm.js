@@ -1,8 +1,12 @@
 import classes from "./NewEventForm.module.css";
 
 function NewEventForm(props) {
-    function submitHandler(event) {
+    async function submitHandler(event) {
         event.preventDefault();
+        const response = await fetch(
+            "https://nextjs-course-a001f-default-rtdb.firebaseio.com/events.json"
+        );
+        const data = await response.json();
 
         const enteredTitle = event.target.title.value;
         const enteredImage = event.target.image.value;

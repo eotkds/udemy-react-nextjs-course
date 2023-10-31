@@ -2,9 +2,10 @@ import NewEventForm from "../../components/events/NewEventForm";
 import { useRouter } from "next/router";
 
 function NewEventPage() {
+    const router = useRouter();
+
     function addEventHandler(eventData) {
         console.log(eventData);
-        const router = useRouter();
 
         fetch(
             "https://nextjs-course-a001f-default-rtdb.firebaseio.com/events.json",
@@ -16,7 +17,7 @@ function NewEventPage() {
                 },
             }
         ).then(() => {
-            router.push("/");
+            router.reload();
         });
     }
 
