@@ -5,8 +5,6 @@ function NewEventPage() {
     const router = useRouter();
 
     function addEventHandler(eventData) {
-        console.log(eventData);
-
         fetch(
             "https://nextjs-course-a001f-default-rtdb.firebaseio.com/events.json",
             {
