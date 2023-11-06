@@ -4,11 +4,10 @@ import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
-import ErrorAlert from "../../components/ui/error-alert";
 
 function EventDetailPage(props) {
     const event = props.selectedEvent;
-    console.log("eventIdpage");
+    // console.log("eventIdpage");
 
     if (!event) {
         return (
@@ -37,7 +36,7 @@ function EventDetailPage(props) {
 export async function getStaticProps(context) {
     const eventId = context.params.eventId;
     const event = await getEventById(eventId);
-    console.log(event);
+    // console.log(event);
     if (!event) {
         return {
             notFound: true,
@@ -55,7 +54,7 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
     const events = await getFeaturedEvents();
     const paths = events.map((event) => ({ params: { eventId: event.id } }));
-    console.log(paths);
+    // console.log(paths);
     return {
         paths: paths,
         fallback: "blocking",
