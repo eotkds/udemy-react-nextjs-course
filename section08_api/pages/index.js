@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 function HomePage() {
     const emailInputRef = useRef();
@@ -9,6 +9,19 @@ function HomePage() {
 
         const enteredEmail = emailInputRef.current.value;
         const enteredFeedback = feedbackInputRef.current.value;
+
+        fetch('/api/feedback', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: enteredEmail,
+                text: enteredFeedback,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data));
     }
 
     return (
@@ -21,11 +34,7 @@ function HomePage() {
                 </div>
                 <div>
                     <label htmlFor="feedback">Your Feedback</label>
-                    <textarea
-                        id="feedback"
-                        rows="5"
-                        ref={feedbackInputRef}
-                    ></textarea>
+                    <textarea id="feedback" rows="5" ref={feedbackInputRef}></textarea>
                 </div>
                 <button>Send Feedback</button>
             </form>
