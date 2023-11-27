@@ -9,7 +9,6 @@ import Comments from '../../components/input/comments';
 
 function EventDetailPage() {
     const router = useRouter();
-    console.log(router);
     const eventId = router.query.eventId;
     const event = getEventById(eventId);
 
