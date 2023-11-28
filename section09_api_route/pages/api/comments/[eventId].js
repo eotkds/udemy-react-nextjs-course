@@ -1,9 +1,14 @@
-import { MongoClient } from 'mongodb';
+import { connectDatabase, getAllDocuments, insertDocument } from '../../../helpers/db-util';
 
 async function handler(req, res) {
     const eventId = req.query;
-    const url = `${process.env.DB_HOST}`;
-    const client = new MongoClient(url);
+    let client;
+    try {
+        client = await connectDatabase();
+    } catch (error) {
+        res.status(500).json({ message: 'Connecting to the database failed!' });
+        return;
+    }
 
     if (req.method === 'POST') {
         const { email, name, text } = req.body;
@@ -26,22 +31,28 @@ async function handler(req, res) {
             text,
             eventId,
         };
-        await client.connect();
-        const dbName = 'events';
-        const db = client.db(dbName);
-        const collection = db.collection('comments');
-        const insertResult = await collection.insertOne(newComment);
+
+        let insertResult;
+        try {
+            insertResult = await insertDocument(client, 'events', 'comments', newComment);
+        } catch (error) {
+            res.status(500).json({ message: 'Inserting data failed!' });
+            return;
+        }
+
         newComment._id = insertResult.insertedId;
 
         res.status(201).json({ message: 'Added comment.', comment: newComment });
     }
 
     if (req.method === 'GET') {
-        const dbName = 'events';
-        const db = client.db(dbName);
-        const collection = db.collection('comments');
-        const documents = await collection.find({}).sort({ _id: -1 }).toArray();
-        console.log(documents);
+        let documents;
+        try {
+            documents = await getAllDocuments(client, 'events', 'comments', { _id: -1 });
+        } catch (error) {
+            res.status(500).json({ message: 'Getting data failed!' });
+            return;
+        }
 
         res.status(200).json({ comments: documents });
     }
