@@ -17,12 +17,11 @@ export function getPostData(fileName) {
         content: content,
     };
 
-    return getPostData;
+    return postData;
 }
 
 export function getAllPosts() {
     const postFiles = fs.readdirSync(postsDirectory);
-
     const allPosts = postFiles.map((postFile) => {
         return getPostData(postFile);
     });
