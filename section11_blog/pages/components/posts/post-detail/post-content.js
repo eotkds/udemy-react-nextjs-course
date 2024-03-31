@@ -2,6 +2,8 @@ import Markdown from "react-markdown";
 import PostHeader from "./post-header";
 import classes from "./post-content.module.css";
 import Image from "next/image";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 function PostContent(props) {
     const { post } = props;
@@ -32,6 +34,26 @@ function PostContent(props) {
             }
 
             return <p>{paragraph.children}</p>;
+        },
+        code(code) {
+            // 강의 코드와 달라 링크 참조하여 작성
+            // https://github.com/remarkjs/react-markdown?tab=readme-ov-file#use-custom-components-syntax-highlight
+            // console.log(code);
+            const { children, className, node, ...rest } = code;
+            const match = /language-(\w+)/.exec(className || "");
+            return match ? (
+                <SyntaxHighlighter
+                    {...rest}
+                    PreTag="div"
+                    children={String(children).replace(/\n$/, "")}
+                    language={match[1]}
+                    style={atomDark}
+                />
+            ) : (
+                <code {...rest} className={className}>
+                    {children}
+                </code>
+            );
         },
     };
 
