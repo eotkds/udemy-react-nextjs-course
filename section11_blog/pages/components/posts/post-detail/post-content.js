@@ -15,7 +15,6 @@ function PostContent(props) {
         //     return <Image src={`/images/posts/${post.slug}/${image.src}`} alt={image.alt} width={600} height={300} />;
         // },
         p(paragraph) {
-            // console.log(paragraph);
             const { node } = paragraph;
 
             if (node.children[0].tagName === "img") {
@@ -38,7 +37,6 @@ function PostContent(props) {
         code(code) {
             // 강의 코드와 달라 링크 참조하여 작성
             // https://github.com/remarkjs/react-markdown?tab=readme-ov-file#use-custom-components-syntax-highlight
-            // console.log(code);
             const { children, className, node, ...rest } = code;
             const match = /language-(\w+)/.exec(className || "");
             return match ? (

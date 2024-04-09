@@ -16,7 +16,6 @@ function PostsDetailPage(props) {
 }
 
 export function getStaticProps(context) {
-    console.log(context);
     const { params } = context;
     const { slug } = params;
     const postData = getPostData(slug);

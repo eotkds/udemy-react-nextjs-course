@@ -1,7 +1,6 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 async function handler(req, res) {
-    // console.log(res);
     const uri = process.env.MONGODB_URI;
 
     if (req.method === "POST") {

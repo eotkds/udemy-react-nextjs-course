@@ -34,7 +34,6 @@ function ContactForm() {
         });
 
         const data = await response.json();
-        console.log(data.message);
         if (!response.ok) {
             throw new Error(data.message || "Something went wrong!");
         }
