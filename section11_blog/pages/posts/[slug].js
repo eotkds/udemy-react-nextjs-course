@@ -1,4 +1,4 @@
-import PostContent from "../components/posts/post-detail/post-content";
+import PostContent from "../../components/posts/post-detail/post-content";
 import Head from "next/head";
 import { getPostData, getPostsFiles } from "../../lib/posts-util";
 import { Fragment } from "react";
@@ -24,11 +24,13 @@ export function getStaticProps(context) {
         props: {
             post: postData,
         },
+        revalidate: 600,
     };
 }
 
 export function getStaticPaths() {
     const postFileNames = getPostsFiles();
+
     const slugs = postFileNames.map((fileName) => fileName.replace(/\.md$/, ""));
 
     return {
